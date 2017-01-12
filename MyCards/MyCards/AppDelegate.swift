@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard
 
             validate(bundleID: options[.sourceApplication]) &&
+            validate(url: url)
 
             else { return false }
 
@@ -61,6 +62,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard source.contains("io.swifting") else { return false }
         
         return true
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    private func validate(url: URL) -> Bool {
+        
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return false }
+
+        return components.queryItems?.filter {
+            $0.name != "destroy_this_damn_app!"
+            && $0.value ?? "" != "true"
+            }.isEmpty ?? true
     }
     
     
