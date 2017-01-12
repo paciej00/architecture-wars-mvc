@@ -27,4 +27,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
         self.window = window
     }
+    
+    
+    
+    
+    
+    
+    
+    
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+
+        guard
+
+            validate(bundleID: options[.sourceApplication]) &&
+
+            else { return false }
+
+        return open(url)
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    private func validate(bundleID: Any?) -> Bool {
+        
+        guard let source = bundleID as? String else { return false }
+        
+        guard source.contains("io.swifting") else { return false }
+        
+        return true
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+
+    private func open(_ url: URL) -> Bool {
+        return true
+    }
+
 }
