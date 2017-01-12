@@ -27,4 +27,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
         self.window = window
     }
+
+    private lazy var effectView: UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        effectView.frame = UIScreen.main.bounds
+        window?.addSubview(effectView)
+    }
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        effectView.removeFromSuperview()
+    }
+
 }
