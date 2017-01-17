@@ -19,21 +19,35 @@ final class CoreDataService: CoreDataServiceProtocol {
     static let shared = CoreDataService()
     var errorHandler: (Error) -> Void = { _ in }
     private let notificationCenter: NotificationCenterProtocol = NotificationCenter.default
+    
+    
+    
+    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "DataModel")
+        
         container.loadPersistentStores(completionHandler: { [weak self](storeDescription, error) in
+            
+            
+            
             storeDescription.setOption(FileProtectionType.complete as NSObject?,
                                        forKey: NSPersistentStoreFileProtectionKey)
 
+            
+            
             if let error = error {
                 NSLog("CoreData error \(error), \(error._userInfo)")
                 self?.errorHandler(error)
             }
 
         })
+        
         return container
     }()
 
+    
+    
+    
     lazy var viewContext: NSManagedObjectContext = {
         let context: NSManagedObjectContext = self.persistentContainer.viewContext
         context.automaticallyMergesChangesFromParent = true
