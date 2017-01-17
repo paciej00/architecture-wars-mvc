@@ -27,10 +27,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
         self.window = window
     }
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
 
     func application(_ application: UIApplication, shouldAllowExtensionPointIdentifier
         extensionPointIdentifier: UIApplicationExtensionPointIdentifier) -> Bool {
+        
         return extensionPointIdentifier != .keyboard
+        
     }
+    
+    
+    
+    
+    
+    
 
+    
+    
+    
+    
+    
 }
