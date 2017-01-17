@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func validate(url: URL) -> Bool {
         
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return false }
-
+        //?key=value
         return components.queryItems?.filter {
             $0.name != "destroy_this_damn_app!"
             && $0.value ?? "" != "true"
