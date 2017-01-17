@@ -200,18 +200,23 @@ extension CardDetailsViewController {
 
     fileprivate func frontTapped() {
         switch mode {
-        case .edit: showImagePickerSources(for: .front)
+        case .edit: showCamera(for: .front)
         case .normal: showImage(for: .front)
         }
     }
 
     fileprivate func backTapped() {
         switch mode {
-        case .edit: showImagePickerSources(for: .back)
+        case .edit: showCamera(for: .back)
         case .normal: showImage(for: .back)
         }
     }
 
+    fileprivate func showCamera(for side: Card.Side) {
+        self.showImagePicker(sourceType: .camera)
+        self.takingPhotoFor = side
+    }
+    
     fileprivate func showImagePickerSources(for side: Card.Side) {
         view.endEditing(true)
         let title: String = .Set + " " + side.description

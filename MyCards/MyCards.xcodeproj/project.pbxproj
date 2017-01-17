@@ -252,7 +252,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69ABD0D71DB391E100CB925C /* Build configuration list for PBXNativeTarget "MyCards" */;
 			buildPhases = (
-				69AB4B301DD6753A0014B996 /* SwiftLint */,
 				69ABD0BE1DB391E100CB925C /* Sources */,
 				69ABD0BF1DB391E100CB925C /* Frameworks */,
 				69ABD0C01DB391E100CB925C /* Resources */,
@@ -316,23 +315,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		69AB4B301DD6753A0014B996 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\nif which swiftlint >/dev/null; then\nswiftlint autocorrect\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		69ABD0BE1DB391E100CB925C /* Sources */ = {
