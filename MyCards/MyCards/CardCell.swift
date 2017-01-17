@@ -17,8 +17,8 @@ class CardCell: UICollectionViewCell, IndexedCell {
     var indexPath: IndexPath?
     var name: String? {
         set {
-            nameLabel.text = newValue
-            nameLabel.sizeToFit()
+//            nameLabel.text = newValue
+//            nameLabel.sizeToFit()
         }
         get {
             return nameLabel.text
