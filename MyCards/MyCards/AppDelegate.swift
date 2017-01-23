@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         guard let source = bundleID as? String else { return false }
         
-        guard source.contains("io.swifting") else { return false }
+        guard source.hasPrefix("io.swifting") else { return false }
         
         return true
     }

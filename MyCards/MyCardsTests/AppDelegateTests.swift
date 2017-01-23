@@ -70,7 +70,7 @@ class AppDelegateTests: XCTestCase {
     func testSomeParamsURL() {
         let validURL: URL = URL(string: "io.swifting.MyCards?card=1234&secure=true&destroy_this_damn_app=false")!
         let validSource: String = "io.swifting.OtherApp"
-        print(validURL)
+
         XCTAssertTrue(sut.application(UIApplication.shared, open: validURL, options: [.sourceApplication : validSource]))
     }
     
@@ -88,8 +88,6 @@ class AppDelegateTests: XCTestCase {
     func testInvalidParamsURL() {
         let invalidURL: URL = URL(string: "io.swifting.MyCards?destroy_this_damn_app=true")!
         let validSource: String = "io.swifting.OtherApp"
-        print(invalidURL)
-
         
         XCTAssertFalse(sut.application(UIApplication.shared, open: invalidURL, options: [.sourceApplication : validSource]))
     }
