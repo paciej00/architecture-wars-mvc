@@ -16,6 +16,7 @@
 		694A73F21DF496FE00424107 /* AVCaptureDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A73F11DF496FE00424107 /* AVCaptureDevice+Extension.swift */; };
 		694A73F41DF4972700424107 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A73F31DF4972700424107 /* UIViewController+Extension.swift */; };
 		69545E7A1DFB00C60050A588 /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 69545E791DFB00C60050A588 /* launch.png */; };
+		69593B0E1E351097004703D8 /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69593B0C1E351087004703D8 /* AppDelegateTests.swift */; };
 		6965BB621DF7E0E8009F9CBC /* CardMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6965BB601DF7E0E8009F9CBC /* CardMO+CoreDataClass.swift */; };
 		6965BB631DF7E0E8009F9CBC /* CardMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6965BB611DF7E0E8009F9CBC /* CardMO+CoreDataProperties.swift */; };
 		6965BB671DF7E7BC009F9CBC /* ManagedObjectConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6965BB651DF7E7BC009F9CBC /* ManagedObjectConvertible.swift */; };
@@ -53,6 +54,16 @@
 		69DDFA791DB3E7B200D856C5 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DDFA781DB3E7B200D856C5 /* Array+Extension.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		69593B071E351020004703D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 69ABD0BA1DB391E100CB925C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 69ABD0C11DB391E100CB925C;
+			remoteInfo = MyCards;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		69183D401DE653420026C1DF /* PhotoCameraButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCameraButton.swift; sourceTree = "<group>"; };
 		69183D421DE653710026C1DF /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
@@ -63,6 +74,9 @@
 		694A73F11DF496FE00424107 /* AVCaptureDevice+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVCaptureDevice+Extension.swift"; sourceTree = "<group>"; };
 		694A73F31DF4972700424107 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		69545E791DFB00C60050A588 /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch.png; sourceTree = "<group>"; };
+		69593B021E351020004703D8 /* MyCardsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyCardsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		69593B061E351020004703D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69593B0C1E351087004703D8 /* AppDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
 		6965BB601DF7E0E8009F9CBC /* CardMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CardMO+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6965BB611DF7E0E8009F9CBC /* CardMO+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CardMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6965BB651DF7E7BC009F9CBC /* ManagedObjectConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectConvertible.swift; sourceTree = "<group>"; };
@@ -103,6 +117,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		69593AFF1E351020004703D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69ABD0BF1DB391E100CB925C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -113,6 +134,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		69593B031E351020004703D8 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				69593B0C1E351087004703D8 /* AppDelegateTests.swift */,
+				69593B061E351020004703D8 /* Info.plist */,
+			);
+			name = Tests;
+			path = MyCardsTests;
+			sourceTree = SOURCE_ROOT;
+		};
 		6965BB641DF7E64B009F9CBC /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				69ABD0C21DB391E100CB925C /* MyCards.app */,
+				69593B021E351020004703D8 /* MyCardsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				69ABD0DD1DB3938F00CB925C /* Source code */,
+				69593B031E351020004703D8 /* Tests */,
 			);
 			path = MyCards;
 			sourceTree = "<group>";
@@ -248,6 +281,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		69593B011E351020004703D8 /* MyCardsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69593B091E351020004703D8 /* Build configuration list for PBXNativeTarget "MyCardsTests" */;
+			buildPhases = (
+				69593AFE1E351020004703D8 /* Sources */,
+				69593AFF1E351020004703D8 /* Frameworks */,
+				69593B001E351020004703D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				69593B081E351020004703D8 /* PBXTargetDependency */,
+			);
+			name = MyCardsTests;
+			productName = MyCardsTests;
+			productReference = 69593B021E351020004703D8 /* MyCardsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		69ABD0C11DB391E100CB925C /* MyCards */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69ABD0D71DB391E100CB925C /* Build configuration list for PBXNativeTarget "MyCards" */;
@@ -271,10 +322,15 @@
 		69ABD0BA1DB391E100CB925C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Maciej Piotrowski";
 				TargetAttributes = {
+					69593B011E351020004703D8 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 69ABD0C11DB391E100CB925C;
+					};
 					69ABD0C11DB391E100CB925C = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 5VHW7X9NK4;
@@ -296,11 +352,19 @@
 			projectRoot = "";
 			targets = (
 				69ABD0C11DB391E100CB925C /* MyCards */,
+				69593B011E351020004703D8 /* MyCardsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		69593B001E351020004703D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69ABD0C01DB391E100CB925C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -317,6 +381,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		69593AFE1E351020004703D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69593B0E1E351097004703D8 /* AppDelegateTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69ABD0BE1DB391E100CB925C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -364,7 +436,43 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		69593B081E351020004703D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 69ABD0C11DB391E100CB925C /* MyCards */;
+			targetProxy = 69593B071E351020004703D8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		69593B0A1E351020004703D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MyCardsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.swifting.MyCardsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyCards.app/MyCards";
+			};
+			name = Debug;
+		};
+		69593B0B1E351020004703D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MyCardsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.swifting.MyCardsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyCards.app/MyCards";
+			};
+			name = Release;
+		};
 		69ABD0D51DB391E100CB925C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -487,6 +595,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		69593B091E351020004703D8 /* Build configuration list for PBXNativeTarget "MyCardsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69593B0A1E351020004703D8 /* Debug */,
+				69593B0B1E351020004703D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		69ABD0BD1DB391E100CB925C /* Build configuration list for PBXProject "MyCards" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
