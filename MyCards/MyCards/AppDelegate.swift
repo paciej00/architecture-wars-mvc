@@ -58,10 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func validate(bundleID: Any?) -> Bool {
         
         guard let source = bundleID as? String else { return false }
-        
-        guard source.hasPrefix("io.swifting") else { return false }
-        
-        return true
+                
+        return source.hasPrefix("io.swifting")
     }
     
     
