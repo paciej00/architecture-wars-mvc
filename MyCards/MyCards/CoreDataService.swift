@@ -19,16 +19,71 @@ final class CoreDataService: CoreDataServiceProtocol {
     static let shared = CoreDataService()
     var errorHandler: (Error) -> Void = { _ in }
     private let notificationCenter: NotificationCenterProtocol = NotificationCenter.default
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "DataModel")
-        container.loadPersistentStores(completionHandler: { [weak self](_, error) in
-            if let error = error {
-                NSLog("CoreData error \(error), \(error._userInfo)")
-                self?.errorHandler(error)
+        
+        
+        
+        
+        
+        
+        container.loadPersistentStores(completionHandler: { [weak self] (storeDescription, error) in
+            
+            guard error == nil else { return }
+            
+            guard let url: URL = storeDescription.url else { return }
+                
+
+            
+            for var url: URL in url.sqliteFileURLs {
+                
+                do {
+                    
+                    
+                    try url.setExcludedFromBackup(true) //Excluding from backup 📲
+                    
+                    
+                } catch { print("\(error)") }
             }
+
+            
+            
+            
+            
+            
+            
+            
+
+                    
+                    
+            
         })
         return container
     }()
+            
+            
+            
+    
+    
+    
+    
+    
+    
+
+    
+            
 
     lazy var viewContext: NSManagedObjectContext = {
         let context: NSManagedObjectContext = self.persistentContainer.viewContext
