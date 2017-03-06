@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        effectView.frame = UIScreen.main.bounds
+        effectView.frame = window?.bounds ?? .zero
         window?.addSubview(effectView)
     }
 
