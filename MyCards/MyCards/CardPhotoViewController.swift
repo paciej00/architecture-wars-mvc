@@ -11,12 +11,12 @@ final class CardPhotoViewController: HiddenStatusBarViewController {
 
     fileprivate lazy var imageView: UIImageView = UIImageView(frame: .zero).with {
         $0.contentMode = .scaleAspectFill
-    }
-    fileprivate lazy var backgroundImageView: UIImageView = UIImageView(frame: .zero).with {
-        $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 20
         $0.clipsToBounds = true
         $0.alpha = 0
+    }
+    fileprivate lazy var backgroundImageView: UIImageView = UIImageView(frame: .zero).with {
+        $0.contentMode = .scaleAspectFill
     }
     fileprivate lazy var visualEffectView: UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     fileprivate lazy var closeButton: CloseButton = CloseButton(frame: .zero).with {
