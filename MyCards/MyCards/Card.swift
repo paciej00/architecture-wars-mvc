@@ -43,8 +43,8 @@ extension Card.Side: CustomStringConvertible {
 extension Card {
     var isValid: Bool {
         guard
-            let _ = front,
-            let _ = back,
+            front != nil,
+            back != nil,
             !name.isEmpty,
             !identifier.isEmpty
             else { return false }

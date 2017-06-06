@@ -9,23 +9,20 @@ import AVFoundation
 
 extension AVCaptureDevice {
     class var duoBackVideoCamera: AVCaptureDevice? {
-        return AVCaptureDevice.defaultDevice(withDeviceType:
-            .builtInDuoCamera, mediaType: AVMediaTypeVideo, position: .back)
+        return AVCaptureDevice.default(
+            .builtInDuoCamera, for: AVMediaType.video, position: .back)
     }
 
     class var duoFrontVideoCamera: AVCaptureDevice? {
-        return AVCaptureDevice.defaultDevice(withDeviceType:
-            .builtInDuoCamera, mediaType: AVMediaTypeVideo, position: .front)
+        return AVCaptureDevice.default(.builtInDuoCamera, for: AVMediaType.video, position: .front)
     }
 
     class var wideAngleBackVideoCamera: AVCaptureDevice? {
-        return AVCaptureDevice.defaultDevice(withDeviceType:
-            .builtInWideAngleCamera, mediaType: AVMediaTypeVideo, position: .back)
+        return AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .back)
     }
 
     class var wideAngleFrontVideoCamera: AVCaptureDevice? {
-        return AVCaptureDevice.defaultDevice(withDeviceType:
-            .builtInWideAngleCamera, mediaType: AVMediaTypeVideo, position: .front)
+        return AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front)
     }
 
     class var backVideoCamera: AVCaptureDevice? {

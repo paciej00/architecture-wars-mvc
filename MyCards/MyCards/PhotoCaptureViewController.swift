@@ -16,8 +16,8 @@ protocol PhotoCaptureViewControllerDelegate: class {
 final class PhotoCaptureViewController: HiddenStatusBarViewController {
 
     weak var delegate: PhotoCaptureViewControllerDelegate?
-    fileprivate let side: Card.Side
-    fileprivate lazy var previewView: PreviewView = PreviewView().with {
+    private let side: Card.Side
+    private lazy var previewView: PreviewView = PreviewView().with {
         $0.session = self.session
         $0.captureButton.tapped = { [unowned self] in self.takePhoto() }
         $0.closeButton.tapped = { [unowned self] in self.dismiss() }
@@ -28,11 +28,11 @@ final class PhotoCaptureViewController: HiddenStatusBarViewController {
     }
 
     // MARK: AVFoundation components
-    fileprivate let output = AVCapturePhotoOutput()
-    fileprivate let session = AVCaptureSession()
-    fileprivate let queue = DispatchQueue(label: "AV Session Queue", attributes: [], target: nil)
-    fileprivate var authorizationStatus: AVAuthorizationStatus {
-        return AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+    private let output = AVCapturePhotoOutput()
+    private let session = AVCaptureSession()
+    private let queue = DispatchQueue(label: "AV Session Queue", attributes: [], target: nil)
+    private var authorizationStatus: AVAuthorizationStatus {
+        return AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
     }
 
     init(side: Card.Side) {
@@ -75,12 +75,12 @@ final class PhotoCaptureViewController: HiddenStatusBarViewController {
 
 extension PhotoCaptureViewController {
 
-    fileprivate func configureViews() {
+    private func configureViews() {
         view.addSubview(previewView)
         view.backgroundColor = .black
     }
 
-    fileprivate func configureConstraints() {
+    private func configureConstraints() {
 
         view.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
 
@@ -89,28 +89,28 @@ extension PhotoCaptureViewController {
         NSLayoutConstraint.activate(constraints)
     }
 
-    fileprivate func requestAuthorizationIfNeeded() {
-        guard .notDetermined == AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) else { return }
+    private func requestAuthorizationIfNeeded() {
+        guard .notDetermined == AVCaptureDevice.authorizationStatus(for: AVMediaType.video) else { return }
         queue.suspend()
-        AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { [unowned self] granted in
+        AVCaptureDevice.requestAccess(for: AVMediaType.video) { [unowned self] granted in
             guard granted else { return }
             self.queue.resume()
         }
     }
 
-    fileprivate enum Error: Swift.Error {
+    private enum Error: Swift.Error {
         case noCamera
         case cannotAddInput
     }
 
-    fileprivate func configureSession() {
+    private func configureSession() {
         guard .authorized == authorizationStatus else { return }
         guard let camera: AVCaptureDevice = AVCaptureDevice.backVideoCamera else { return }
 
         defer { session.commitConfiguration() }
 
         session.beginConfiguration()
-        session.sessionPreset = AVCaptureSessionPresetPhoto
+        session.sessionPreset = AVCaptureSession.Preset.photo
 
         do {
             let input = try AVCaptureDeviceInput(device: camera)
@@ -124,7 +124,7 @@ extension PhotoCaptureViewController {
         output.isLivePhotoCaptureEnabled = false
     }
 
-    fileprivate func takePhoto() {
+    private func takePhoto() {
         queue.async { [unowned self] in
             let photoSettings = AVCapturePhotoSettings()
             photoSettings.flashMode = .auto
@@ -133,7 +133,7 @@ extension PhotoCaptureViewController {
         }
     }
 
-    fileprivate func startSession() {
+    private func startSession() {
         queue.async {
             guard self.authorizationStatus == .authorized else { return }
             guard !self.session.isRunning else { return }
@@ -141,7 +141,7 @@ extension PhotoCaptureViewController {
         }
     }
 
-    fileprivate func stopSession() {
+    private func stopSession() {
         queue.async {
             guard self.authorizationStatus == .authorized else { return }
             guard self.session.isRunning else { return }
@@ -155,19 +155,22 @@ extension PhotoCaptureViewController: AVCapturePhotoCaptureDelegate {
     // codebeat:disable[ARITY]
     //swiftlint:disable function_parameter_count
     //swiftlint:disable line_length
-    @objc(captureOutput:didFinishProcessingPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:)
-    func capture(_ captureOutput: AVCapturePhotoOutput,
-                          didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?,
-                          previewPhotoSampleBuffer: CMSampleBuffer?,
-                          resolvedSettings: AVCaptureResolvedPhotoSettings,
-                          bracketSettings: AVCaptureBracketedStillImageSettings?,
-                          error: NSError?) {
-
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Swift.Error?) {
         guard let sample = photoSampleBuffer,
             let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer:
                 sample, previewPhotoSampleBuffer: previewPhotoSampleBuffer),
             let photo = process(data)
-            else { print("Error capturing photo: \(error)"); return }
+            else { print("Error capturing photo: \(String(describing: error))"); return }
+
+        delegate?.photoCaptureViewController(self, didTakePhoto: photo, for: side)
+    }
+
+    @available(iOS 11.0, *)
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Swift.Error?) {
+        guard error == nil else { print("Error capturing photo: \(String(describing: error))"); return }
+        guard let data = photo.fileDataRepresentation(),
+            let photo = process(data)
+            else { return }
 
         delegate?.photoCaptureViewController(self, didTakePhoto: photo, for: side)
     }
