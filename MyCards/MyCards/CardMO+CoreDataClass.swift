@@ -17,11 +17,7 @@ extension CardMO: ManagedObjectProtocol {
     }
 
     func toEntity() -> Card? {
-        var front: UIImage?
-        var back: UIImage?
-        self.front.map { front = UIImage(data: $0 as Data) }
-        self.back.map { back = UIImage(data: $0 as Data) }
-        return Card(identifier: identifier, name: name, front: front, back: back)
+        return Card(identifier: identifier, name: name, front: front as Data?, back: back as Data?)
     }
 }
 
@@ -30,10 +26,10 @@ extension Card: ManagedObjectConvertible {
         let card = CardMO.getOrCreateSingle(with: identifier, from: context)
         card.name = name
         card.identifier = identifier
-        front.flatMap(UIImagePNGRepresentation).flatMap {
+        front.flatMap {
             card.front = NSData(data: $0)
         }
-        back.flatMap(UIImagePNGRepresentation).flatMap {
+        back.flatMap {
             card.back = NSData(data: $0)
         }
         return card

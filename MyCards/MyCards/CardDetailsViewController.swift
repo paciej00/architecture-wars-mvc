@@ -12,8 +12,8 @@ final class CardDetailsViewController: UIViewController {
     fileprivate var history: [Card] = []
     fileprivate var card: Card {
         didSet {
-            front.image = card.front
-            back.image = card.back
+            front.image = card.front?.image
+            back.image = card.back?.image
             name.text = card.name
             doneButton.isEnabled = card.isValid
         }
@@ -35,10 +35,10 @@ final class CardDetailsViewController: UIViewController {
         .cancel, target: self, action: #selector(cancelTapped))
     fileprivate lazy var doneButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem:
         .done, target: self, action: #selector(doneTapped))
-    fileprivate lazy var front: CardView = CardView(image: self.card.front).with {
+    fileprivate lazy var front: CardView = CardView(image: self.card.front?.image).with {
         $0.tapped = { [unowned self] in self.cardTapped(.front) }
     }
-    fileprivate lazy var back: CardView = CardView(image: self.card.back) .with {
+    fileprivate lazy var back: CardView = CardView(image: self.card.back?.image) .with {
         $0.tapped = { [unowned self] in self.cardTapped(.back) }
     }
     fileprivate lazy var name: UITextField = UITextField.makeNameField().with {
@@ -235,15 +235,15 @@ extension CardDetailsViewController {
     }
 
     fileprivate func set(_ image: UIImage, for side: Card.Side) {
-        var front: UIImage?
-        var back: UIImage?
+        var front: Data?
+        var back: Data?
         switch side {
         case .front:
-            front = image
+            front = UIImagePNGRepresentation(image)
             back = card.back
         case .back:
             front = card.front
-            back = image
+            back = UIImagePNGRepresentation(image)
         }
         card = Card(identifier: card.identifier,
                     name: card.name,

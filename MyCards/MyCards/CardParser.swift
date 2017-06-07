@@ -8,38 +8,14 @@
 import UIKit
 
 final class CardParser: Parser, JSONDataConverting {
-    func parse(_ json: Any?) -> Any? { //[[String : Any]] -> [Card]
-        guard let items = json as? [[String : Any]] else { return nil }
-        var cards: [Card] = []
-        for item in items {
-            guard let card = Card(json: item) else { continue }
-            cards.append(card)
-        }
-        return cards
+    func parse(_ json: Data?, with decoder: JSONDecoder = JSONDecoder()) throws -> Any? {
+        guard let json = json else { return nil }
+        return try decoder.decode([Card].self, from: json)
     }
 
-    func json(from object: Any) -> Data? {
+    func json(from object: Codable, with encoder: JSONEncoder = JSONEncoder()) throws -> Data? {
         guard let cards = object as? [Card] else { return nil }
-        var json: [[String : Any]] = []
-        for card in cards {
-            var dictionary: [String : Any] = [:]
-            dictionary[Card.JSONKey.name.rawValue] = card.name
-            dictionary[Card.JSONKey.identifier.rawValue] = card.identifier
-            dictionary[Card.JSONKey.front.rawValue] = card.front
-                .flatMap { UIImagePNGRepresentation($0) }
-                .flatMap { $0.base64EncodedString() } ?? ""
-            dictionary[Card.JSONKey.back.rawValue] = card.back
-                .flatMap { UIImagePNGRepresentation($0) }
-                .flatMap { $0.base64EncodedString() } ?? ""
-            json.append(dictionary)
-        }
-        do {
-            print(json)
-            let data = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-            return data
-        } catch {
-            print(String(describing: error))
-        }
-        return nil
+        let jsonData = try encoder.encode(cards)
+        return jsonData
     }
 }

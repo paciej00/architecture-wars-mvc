@@ -7,20 +7,26 @@
 
 import UIKit
 
-struct Card {
+extension Data {
+    var image: UIImage? {
+        return UIImage(data: self)
+    }
+}
+
+struct Card: Codable {
     let identifier: String
     let name: String
-    let front: UIImage?
-    let back: UIImage?
+    let front: Data?
+    let back: Data?
+}
 
+extension Card {
     init(identifier: String = UUID().uuidString,
-         name: String,
-         front: UIImage? = nil,
-         back: UIImage? = nil) {
+         name: String) {
         self.identifier = identifier
         self.name = name
-        self.front = front
-        self.back = back
+        self.front = nil
+        self.back = nil
     }
 }
 
@@ -53,18 +59,7 @@ extension Card {
 }
 
 extension Card {
-    enum JSONKey: String {
-        case identifier, name, front, back
-    }
-    init?(json: [String : Any]) {
-        guard let identifier = json[JSONKey.identifier.rawValue] as? String,
-            let name = json[JSONKey.name.rawValue] as? String,
-            let front = json[JSONKey.front.rawValue] as? String,
-            let back = json[JSONKey.back.rawValue] as? String
-            else { return nil }
-        self.identifier = identifier
-        self.name = name
-        self.front = Data(base64Encoded: front).flatMap(UIImage.init(data:))
-        self.back = Data(base64Encoded: back).flatMap(UIImage.init(data:))
+    init?(json jsonData: Data, decoder: JSONDecoder = JSONDecoder()) throws {
+        self = try decoder.decode(Card.self, from: jsonData)
     }
 }

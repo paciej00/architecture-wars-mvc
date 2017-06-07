@@ -173,7 +173,7 @@ extension CardsViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeueReusableCell(of: CardCell.self, for: indexPath) { cell in
             guard let card = cards[safe: indexPath.row] else { return }
-            cell.image = card.front ?? #imageLiteral(resourceName: "background")
+            cell.image = card.front?.image ?? #imageLiteral(resourceName: "background")
             cell.indexPath = indexPath
             cell.delegate = self
         }

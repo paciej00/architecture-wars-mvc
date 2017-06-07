@@ -8,11 +8,11 @@
 import Foundation
 
 protocol DataDownloading {
-    func download(from endpoint: String, callback: @escaping (Any?) -> Void)
+    func download(from endpoint: String, callback: @escaping (Data?) -> Void)
 }
 
 protocol Parser {
-    func parse(_ json: Any?) -> Any?
+    func parse(_ json: Data?, with decoder: JSONDecoder) throws -> Any?
 }
 
 protocol ParsedDataDownloading {
@@ -20,7 +20,7 @@ protocol ParsedDataDownloading {
 }
 
 protocol JSONDataConverting {
-    func json(from object: Any) -> Data?
+    func json(from object: Codable, with encoder: JSONEncoder) throws -> Data?
 }
 
 protocol DataUploading {
@@ -28,7 +28,7 @@ protocol DataUploading {
 }
 
 protocol JSONConvertibleDataUploading {
-    func upload(object: Any, to endpoint: String, parser: JSONDataConverting, callback: @escaping (Any?) -> Void)
+    func upload(object: Codable, to endpoint: String, parser: JSONDataConverting, callback: @escaping (Any?) -> Void)
 }
 
 typealias ResourceLoading = ParsedDataDownloading & JSONConvertibleDataUploading
@@ -49,13 +49,13 @@ final class NetworkLoader {
 }
 
 extension NetworkLoader: DataDownloading {
-    func download(from endpoint: String, callback: @escaping (Any?) -> Void) {
+    func download(from endpoint: String, callback: @escaping (Data?) -> Void) {
         let url = self.url(with: endpoint)
         let task = session.dataTask(with: url) { (data, _, error) -> Void in
             guard error == nil,
                 let data = data
                 else { print(String(describing: error)); callback(nil); return }
-            callback(data.JSONObject)
+            callback(data)
         }
         task.resume()
     }
@@ -64,9 +64,13 @@ extension NetworkLoader: DataDownloading {
 
 extension NetworkLoader: ParsedDataDownloading {
     func download(from endpoint: String, parser: Parser, callback: @escaping (Any?) -> Void) {
-        download(from: endpoint) { json in
-            let parsed = parser.parse(json)
-            callback(parsed)
+        download(from: endpoint) { jsonData in
+            do {
+                let parsed = try parser.parse(jsonData, with: JSONDecoder())
+                callback(parsed)
+            } catch {
+                callback(nil)
+            }
         }
     }
 }
@@ -86,10 +90,15 @@ extension NetworkLoader: DataUploading {
 }
 
 extension NetworkLoader: JSONConvertibleDataUploading {
-    func upload(object: Any, to endpoint: String, parser: JSONDataConverting, callback: @escaping (Any?) -> Void) {
-        guard let data = parser.json(from: object) else { callback(nil); return }
-        upload(data: data, to: endpoint) { (data) in
-            callback(data)
+    func upload(object: Codable, to endpoint: String, parser: JSONDataConverting, callback: @escaping (Any?) -> Void) {
+        do {
+            guard let jsonData = try parser.json(from: object, with: JSONEncoder()) else { callback(nil); return }
+            //print(String(data: jsonData, encoding: .utf8) ?? "")
+            upload(data: jsonData, to: endpoint) { (responseData) in
+                callback(responseData)
+            }
+        } catch {
+            callback(nil)
         }
     }
 }
